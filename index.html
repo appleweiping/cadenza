@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Cadenza · 琴瀑</title>
+<meta name="description" content="Cadenza (琴瀑) — 开源网页节奏音游,灵感来自《钢琴块2》。180 首公有领域名曲逐音符转谱,零依赖原生 JS + Canvas + Web Audio。">
+<meta name="theme-color" content="#0d1022">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230d1022'/><rect x='14' y='10' width='20' height='44' rx='4' fill='%23ffffff'/><rect x='40' y='30' width='20' height='44' rx='4' fill='%237c5cff'/><rect x='66' y='50' width='20' height='40' rx='4' fill='%2338bdf8'/></svg>">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ══════════ 主菜单 / 选曲 ══════════ -->
+  <section id="screen-menu" class="screen">
+    <header class="menu-header">
+      <div class="logo">
+        <span class="logo-main">Cadenza</span>
+        <span class="logo-sub">琴瀑</span>
+      </div>
+      <div class="player-chip">
+        <div class="level-badge">Lv.<span id="hud-level">1</span></div>
+        <div class="exp-bar"><div id="exp-fill"></div></div>
+        <div class="meta-counts">
+          <span class="star-count">★ <b id="total-stars">0</b></span>
+          <span class="crown-count">♛ <b id="total-crowns">0</b></span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="btn-open-stats" data-i18n-title="menu.stats">📊</button>
+        <button class="icon-btn" id="btn-open-ach" data-i18n-title="menu.achievements">🏆</button>
+        <button class="icon-btn" id="btn-open-settings" data-i18n-title="menu.settings">⚙️</button>
+      </div>
+    </header>
+    <div id="collection-list"></div>
+    <footer class="menu-footer" data-i18n="menu.footer"></footer>
+  </section>
+
+  <!-- ══════════ 游戏 ══════════ -->
+  <section id="screen-game" class="screen hidden">
+    <canvas id="game-canvas"></canvas>
+    <div id="hud">
+      <div id="hud-crowns"></div>
+      <div id="hud-score">0</div>
+      <button id="btn-pause" class="icon-btn" data-i18n-title="game.pause">⏸</button>
+    </div>
+    <div id="overlay-countdown" class="game-overlay hidden"><div id="countdown-num">3</div></div>
+    <div id="overlay-pause" class="game-overlay hidden">
+      <div class="overlay-card">
+        <h2 data-i18n="pause.title"></h2>
+        <button id="btn-resume" class="btn primary" data-i18n="pause.resume"></button>
+        <button id="btn-restart" class="btn" data-i18n="pause.restart"></button>
+        <button id="btn-quit" class="btn ghost" data-i18n="pause.quit"></button>
+      </div>
+    </div>
+    <div id="overlay-fail" class="game-overlay hidden">
+      <div class="overlay-card">
+        <h2 data-i18n="fail.title"></h2>
+        <p id="fail-reason"></p>
+        <button id="btn-revive" class="btn primary"></button>
+        <button id="btn-retry" class="btn" data-i18n="fail.retry"></button>
+        <button id="btn-exit" class="btn ghost" data-i18n="fail.exit"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 结算 ══════════ -->
+  <section id="screen-results" class="screen hidden">
+    <div class="results-card">
+      <p class="res-label" data-i18n="res.title"></p>
+      <h2 id="res-song-title"></h2>
+      <p id="res-song-composer"></p>
+      <div id="res-stars">
+        <span class="res-star" data-star="1">★</span><span class="res-star" data-star="2">★</span><span class="res-star" data-star="3">★</span>
+      </div>
+      <div id="res-score">0</div>
+      <div id="res-newbest" class="hidden" data-i18n="res.newBest"></div>
+      <div class="res-grid">
+        <div class="res-row"><span data-i18n="res.crowns"></span><b id="res-crowns"></b></div>
+        <div class="res-row"><span data-i18n="res.lap"></span><b id="res-lap"></b></div>
+        <div class="res-row"><span data-i18n="res.maxCombo"></span><b id="res-combo"></b></div>
+        <div class="res-row perfect"><span>PERFECT</span><b id="res-perfect"></b></div>
+        <div class="res-row great"><span>GREAT</span><b id="res-great"></b></div>
+        <div class="res-row good"><span>GOOD</span><b id="res-good"></b></div>
+      </div>
+      <button id="btn-again" class="btn primary" data-i18n="res.again"></button>
+      <button id="btn-back" class="btn ghost" data-i18n="res.back"></button>
+    </div>
+  </section>
+
+  <!-- ══════════ 弹窗 ══════════ -->
+  <div id="modal-root" class="hidden">
+    <div class="modal hidden" id="modal-settings">
+      <div class="modal-head"><h3 data-i18n="settings.title"></h3><button class="icon-btn modal-close">✕</button></div>
+      <div class="modal-body">
+        <label class="set-row"><span data-i18n="settings.volume"></span>
+          <input type="range" id="set-volume" min="0" max="100" step="1"></label>
+        <label class="set-row"><span data-i18n="settings.language"></span>
+          <select id="set-lang"><option value="zh">中文</option><option value="en">English</option></select></label>
+        <label class="set-row"><span data-i18n="settings.particles"></span>
+          <input type="checkbox" id="set-particles"></label>
+        <label class="set-row"><span data-i18n="settings.revive"></span>
+          <input type="checkbox" id="set-revive"></label>
+        <label class="set-row"><span data-i18n="settings.unlockAll"></span>
+          <input type="checkbox" id="set-unlockall"></label>
+        <div class="set-row keys-hint"><span data-i18n="settings.keys"></span><b>D F J K</b></div>
+        <button id="btn-reset-save" class="btn danger" data-i18n="settings.reset"></button>
+      </div>
+    </div>
+    <div class="modal hidden" id="modal-achievements">
+      <div class="modal-head"><h3 data-i18n="ach.title"></h3><button class="icon-btn modal-close">✕</button></div>
+      <div class="modal-body"><div id="ach-grid"></div></div>
+    </div>
+    <div class="modal hidden" id="modal-stats">
+      <div class="modal-head"><h3 data-i18n="stats.title"></h3><button class="icon-btn modal-close">✕</button></div>
+      <div class="modal-body"><div id="stats-list"></div></div>
+    </div>
+    <div class="modal hidden" id="modal-confirm">
+      <div class="modal-head"><h3 data-i18n="confirm.title"></h3></div>
+      <div class="modal-body">
+        <p id="confirm-msg"></p>
+        <div class="confirm-btns">
+          <button id="btn-confirm-yes" class="btn danger" data-i18n="confirm.yes"></button>
+          <button id="btn-confirm-no" class="btn" data-i18n="confirm.no"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-root"></div>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
