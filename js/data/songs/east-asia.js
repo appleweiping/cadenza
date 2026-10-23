@@ -13,7 +13,7 @@ export default [
   },
   {
     id: 'kojo-no-tsuki', collection: 'east-asia', difficulty: 2, bpm: 72,
-    title: { zh: '荒城之月', en: 'Moon over the Ruined Castle' }, composer: '滝廉太郎',
+    title: { zh: '荒城之月', en: 'Moon over the Ruined Castle' }, composer: { zh: '滝廉太郎', en: 'Rentarō Taki' },
     score: `
       A4/4 A4/4 D5/4 D5/4 | E5/8 F5/8 E5/4 D5/2 | C5/4 C5/4 F5/4 E5/4 | D5/4 C#5/8 D5/8 A4/2
       A4/4 A4/4 D5/4 D5/4 | E5/8 F5/8 E5/4 D5/2 | C5/4 A4/4 D5/4 C#5/4 | (D5,A4,D4)/1~
@@ -22,7 +22,7 @@ export default [
   },
   {
     id: 'furusato', collection: 'east-asia', difficulty: 1, bpm: 84,
-    title: { zh: '故乡', en: 'Furusato' }, composer: '岡野貞一',
+    title: { zh: '故乡', en: 'Furusato' }, composer: { zh: '岡野貞一', en: 'Teiichi Okano' },
     score: `
       C4/4 C4/4 C4/4 D4/4 | E4/4 E4/4 D4/2 | E4/4 E4/4 F4/4 G4/4 | A4/2.~ r/4
       A4/4 A4/4 G4/4 G4/4 | C5/4 C5/4 A4/2 | G4/4 G4/4 A4/4 G4/4 | E4/4 C4/4 D4/2
@@ -31,7 +31,7 @@ export default [
   },
   {
     id: 'hamabe-no-uta', collection: 'east-asia', difficulty: 2, bpm: 76,
-    title: { zh: '海滨之歌', en: 'Song of the Seashore' }, composer: '成田為三',
+    title: { zh: '海滨之歌', en: 'Song of the Seashore' }, composer: { zh: '成田為三', en: 'Tamezō Narita' },
     score: `
       C4/4. D4/8 E4/4 | G4/4. A4/8 G4/4 | E4/4. G4/8 C5/4 | A4/2.~
       G4/4. A4/8 C5/4 | E5/4. D5/8 C5/4 | A4/4 C5/4 G4/4 | E4/2.~

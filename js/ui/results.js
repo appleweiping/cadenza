@@ -5,7 +5,7 @@ import { i18n } from '../i18n.js';
 export function showResults(res) {
   const $ = (id) => document.getElementById(id);
   $('res-song-title').textContent = i18n.pick(res.song.title);
-  $('res-song-composer').textContent = res.song.composer;
+  $('res-song-composer').textContent = i18n.pick(res.song.composer);
   $('res-score').textContent = String(res.score);
   $('res-crowns').textContent = res.crowns > 0 ? '♛'.repeat(res.crowns) : '—';
   $('res-lap').textContent = String(res.lap);

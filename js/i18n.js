@@ -154,6 +154,7 @@ export const i18n = {
   /** 歌名等 {zh, en} 双语对象取当前语言 */
   pick(obj) {
     if (!obj) return '';
+    if (typeof obj === 'string') return obj;
     return obj[lang] ?? obj.en ?? Object.values(obj)[0];
   },
 

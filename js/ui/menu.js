@@ -17,7 +17,7 @@ function songCard(song, col, onSelect) {
   el.innerHTML = `
     <div class="song-info">
       <div class="song-title">${i18n.pick(song.title)}</div>
-      <div class="song-composer">${song.composer}</div>
+      <div class="song-composer">${i18n.pick(song.composer)}</div>
       <div class="song-meta"><span class="diff-dots">${dots}</span>${song.pro ? '<span class="pro-badge">PRO</span>' : ''}</div>
     </div>
     <div class="song-right">
