@@ -48,6 +48,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   transition: transform .08s ease;
 }
 .icon-btn:active { transform: scale(.92); }
+.lang-btn { width: auto; min-width: 42px; padding: 0 10px; font-size: 14px; font-weight: 700; }
 
 /* ═══════ 主菜单 ═══════ */
 .menu-header {

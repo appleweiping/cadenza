@@ -74,6 +74,11 @@ $('btn-open-ach').addEventListener('click', () => {
   openModal('modal-achievements');
 });
 $('btn-open-stats').addEventListener('click', () => { renderStats(); openModal('modal-stats'); });
+$('btn-lang').addEventListener('click', () => {
+  playClick();
+  i18n.setLang(i18n.lang === 'zh' ? 'en' : 'zh');
+  renderMenu(startSong);
+});
 
 for (const btn of document.querySelectorAll('.modal-close')) {
   btn.addEventListener('click', closeModals);

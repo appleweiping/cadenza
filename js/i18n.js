@@ -6,6 +6,9 @@ import { store } from './storage.js';
 const STRINGS = {
   zh: {
     'menu.footer': '♫ 全部曲目为公有领域作品 · 灵感来自《钢琴块2》· 开源于 GitHub',
+    'menu.logoSub': '琴瀑',
+    'menu.langSwitch': 'EN',
+    'menu.langSwitchTitle': 'Switch to English',
     'menu.settings': '设置',
     'menu.achievements': '成就',
     'menu.stats': '统计',
@@ -66,6 +69,9 @@ const STRINGS = {
   },
   en: {
     'menu.footer': '♫ All music is public domain · Inspired by Piano Tiles 2 · Open source on GitHub',
+    'menu.logoSub': '',
+    'menu.langSwitch': '中文',
+    'menu.langSwitchTitle': '切换到中文',
     'menu.settings': 'Settings',
     'menu.achievements': 'Achievements',
     'menu.stats': 'Statistics',

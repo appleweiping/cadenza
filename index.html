@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>Cadenza · 琴瀑</title>
-<meta name="description" content="Cadenza (琴瀑) — 开源网页节奏音游,灵感来自《钢琴块2》。180 首公有领域名曲逐音符转谱,零依赖原生 JS + Canvas + Web Audio。">
+<title>Cadenza</title>
+<meta name="description" content="Cadenza: a tap-the-black-tiles piano rhythm game for the browser, with 167 public-domain pieces and a synthesized piano.">
 <meta name="theme-color" content="#0d1022">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230d1022'/><rect x='14' y='10' width='20' height='44' rx='4' fill='%23ffffff'/><rect x='40' y='30' width='20' height='44' rx='4' fill='%237c5cff'/><rect x='66' y='50' width='20' height='40' rx='4' fill='%2338bdf8'/></svg>">
 <link rel="stylesheet" href="css/style.css">
@@ -17,7 +17,7 @@
     <header class="menu-header">
       <div class="logo">
         <span class="logo-main">Cadenza</span>
-        <span class="logo-sub">琴瀑</span>
+        <span class="logo-sub" data-i18n="menu.logoSub"></span>
       </div>
       <div class="player-chip">
         <div class="level-badge">Lv.<span id="hud-level">1</span></div>
@@ -28,6 +28,7 @@
         </div>
       </div>
       <div class="header-actions">
+        <button class="icon-btn lang-btn" id="btn-lang" data-i18n="menu.langSwitch" data-i18n-title="menu.langSwitchTitle"></button>
         <button class="icon-btn" id="btn-open-stats" data-i18n-title="menu.stats">📊</button>
         <button class="icon-btn" id="btn-open-ach" data-i18n-title="menu.achievements">🏆</button>
         <button class="icon-btn" id="btn-open-settings" data-i18n-title="menu.settings">⚙️</button>
